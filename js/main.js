@@ -16,4 +16,17 @@ function getRandomIntFromRange(from, to) {
   return Math.floor(rand * (difference + 1)) + from;
 }
 
+function checkStringMaxLength(value, maxLength) {
+  if (!value) {
+    return true;
+  }
+
+  if (value.length <= maxLength) {
+    return true;
+  }
+
+  return false;
+}
+
 getRandomIntFromRange(1, 3);
+checkStringMaxLength('Утренние потягушки Кекса', 140);
