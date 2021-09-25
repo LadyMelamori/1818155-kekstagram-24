@@ -7,6 +7,9 @@ function getRandomIntFromRange(from, to) {
     return -1;
   }
 
+  from = Math.ceil(from);
+  to = Math.floor(to);
+
   const difference = to - from;
   const rand = Math.random();
 
