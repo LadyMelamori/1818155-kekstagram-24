@@ -1,4 +1,4 @@
-function getRandomIntFromRange(from, to) {
+const getRandomIntFromRange = (from, to) => {
   if (from < 0 || to < 0 || to < from) {
     return -1;
   }
@@ -10,11 +10,9 @@ function getRandomIntFromRange(from, to) {
   const rand = Math.random();
 
   return Math.floor(rand * (difference + 1)) + fromRounded;
-}
+};
 
-function checkStringMaxLength(value, maxLength) {
-  return !value || value.length <= maxLength;
-}
+const checkStringMaxLength = (value, maxLength) => !value || value.length <= maxLength;
 
 getRandomIntFromRange(1, 3);
 checkStringMaxLength('Утренние потягушки Кекса', 140);
