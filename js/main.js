@@ -1,31 +1,19 @@
 function getRandomIntFromRange(from, to) {
-  if (from < 0 || to < 0) {
+  if (from < 0 || to < 0 || to < from) {
     return -1;
   }
 
-  if (to < from) {
-    return -1;
-  }
+  const fromRounded = Math.ceil(from);
+  const toRounded = Math.floor(to);
 
-  from = Math.ceil(from);
-  to = Math.floor(to);
-
-  const difference = to - from;
+  const difference = toRounded - fromRounded;
   const rand = Math.random();
 
-  return Math.floor(rand * (difference + 1)) + from;
+  return Math.floor(rand * (difference + 1)) + fromRounded;
 }
 
 function checkStringMaxLength(value, maxLength) {
-  if (!value) {
-    return true;
-  }
-
-  if (value.length <= maxLength) {
-    return true;
-  }
-
-  return false;
+  return !value || value.length <= maxLength;
 }
 
 getRandomIntFromRange(1, 3);
