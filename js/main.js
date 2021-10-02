@@ -1,6 +1,6 @@
 const getRandomIntFromRange = (from, to) => {
   if (from < 0 || to < 0 || to < from) {
-    return -1;
+    throw 'Invalid parameters';
   }
 
   const fromRounded = Math.ceil(from);
