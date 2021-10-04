@@ -87,6 +87,9 @@ const createPhoto = (id) => {
   };
 };
 
-const photos = Array.from({ length: PHOTO_COUNT }, (v, i) => createPhoto(i + 1));
+const init = () => {
+  const photos = Array.from({ length: PHOTO_COUNT }, (v, i) => createPhoto(i + 1));
+  photos; // чтобы линтер не ругался на never used
+};
 
-photos; // чтобы линтер не ругался на never used
+init();
