@@ -34,6 +34,7 @@ const getCommentMarkup = (comment) => {
 const onPopupEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
+    // eslint-disable-next-line no-use-before-define
     closePopup();
   }
 };
