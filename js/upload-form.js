@@ -2,7 +2,9 @@ import {isEscapeKey} from './utils.js';
 
 const formElement = document.querySelector('.img-upload__form');
 const uploadInputElement = formElement.querySelector('.img-upload__input');
-const formEditPhotoElement = document.querySelector('.img-upload__overlay');
+const formEditPhotoElement = formElement.querySelector('.img-upload__overlay');
+const hashtagsInputElement = formElement.querySelector('.text__hashtags');
+const descriptionInputElement = formElement.querySelector('.text__description');
 const closeFormButtonElement = formElement.querySelector('.img-upload__cancel');
 const bodyElement = document.querySelector('body');
 
@@ -29,3 +31,13 @@ const closeForm = () => {
 
 uploadInputElement.addEventListener('change', showForm);
 closeFormButtonElement.addEventListener('click', closeForm);
+
+const onTextInputEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    evt.stopPropagation();
+  }
+};
+
+hashtagsInputElement.addEventListener('keydown', onTextInputEscKeydown);
+descriptionInputElement.addEventListener('keydown', onTextInputEscKeydown);
