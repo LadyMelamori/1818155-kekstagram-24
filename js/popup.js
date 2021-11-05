@@ -8,7 +8,7 @@ const popupCommentsListElement = popupElement.querySelector('.social__comments')
 const popupCaptionElement = popupElement.querySelector('.social__caption');
 const popupShownCommentsCountElement = popupElement.querySelector('.social__comment-count');
 const popupCommentsLoaderElement = popupElement.querySelector('.comments-loader');
-const popupCloseButton = popupElement.querySelector('.big-picture__cancel');
+const popupCloseButtonElement = popupElement.querySelector('.big-picture__cancel');
 const bodyElement = document.querySelector('body');
 
 const getCommentMarkup = (comment) => {
@@ -68,8 +68,6 @@ const closePopup = () => {
   document.removeEventListener('keydown', onPopupEscKeydown);
 };
 
-popupCloseButton.addEventListener('click', () => {
-  closePopup();
-});
+popupCloseButtonElement.addEventListener('click', closePopup);
 
 export {showPopup};
