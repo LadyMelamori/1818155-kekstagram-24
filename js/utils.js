@@ -21,3 +21,7 @@ export {checkStringMaxLength};
 const getRandomArrayElement = (elements) => elements[getRandomIntFromRange(0, elements.length - 1)];
 
 export {getRandomArrayElement};
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {isEscapeKey};
