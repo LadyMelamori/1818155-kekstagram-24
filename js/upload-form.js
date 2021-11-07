@@ -48,7 +48,7 @@ const validateHashtags = (hashtagsString) => {
   const splittedHashtags = hashtagsString.split(' ');
   const hashtags = splittedHashtags.filter((value) => value.length > 0);
 
-  let errorMessages = [];
+  const errorMessages = [];
 
   if (hashtags.some((x) => !x.startsWith('#'))) {
     errorMessages.push('Хештег должен начинаться с символа # (решётка).');
