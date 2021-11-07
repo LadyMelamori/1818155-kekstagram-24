@@ -61,6 +61,7 @@ const generateShowNextCommentsBatchFunction = (comments) => {
   return showNextCommentsBatchFunction;
 };
 
+// болванка для обработчика кнопки "Загрузить ещё"
 let showNextCommentsBatch = () => {};
 
 const showPopup = (photo) => {
@@ -90,6 +91,14 @@ const closePopup = () => {
   popupCommentsLoaderElement.removeEventListener('click', showNextCommentsBatch);
 };
 
-popupCloseButtonElement.addEventListener('click', closePopup);
+const addClosePopupButtonListener = () => {
+  popupCloseButtonElement.addEventListener('click', closePopup);
+};
+
+const init = () => {
+  addClosePopupButtonListener();
+};
+
+init();
 
 export {showPopup};
