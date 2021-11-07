@@ -31,18 +31,12 @@ const closeForm = () => {
   formElement.reset();
 };
 
-uploadInputElement.addEventListener('change', showForm);
-closeFormButtonElement.addEventListener('click', closeForm);
-
 const onTextInputEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     evt.stopPropagation();
   }
 };
-
-hashtagsInputElement.addEventListener('keydown', onTextInputEscKeydown);
-descriptionInputElement.addEventListener('keydown', onTextInputEscKeydown);
 
 const validateHashtags = (hashtagsString) => {
   const splittedHashtags = hashtagsString.split(' ');
@@ -85,14 +79,6 @@ const validateHashtags = (hashtagsString) => {
   hashtagsInputElement.reportValidity();
 };
 
-hashtagsInputElement.addEventListener('input', () => {
-  validateHashtags(hashtagsInputElement.value);
-});
-
-hashtagsInputElement.addEventListener('focus', () => {
-  validateHashtags(hashtagsInputElement.value);
-});
-
 const validateDescription = (description) => {
   if (!checkStringMaxLength(description, DESCRIPTION_MAX_LENGTH)) {
     descriptionInputElement.setCustomValidity('Длина комментария не может составлять больше 140 символов.');
@@ -103,10 +89,28 @@ const validateDescription = (description) => {
   descriptionInputElement.reportValidity();
 };
 
-descriptionInputElement.addEventListener('input', () => {
-  validateDescription(descriptionInputElement.value);
-});
+const init = () => {
+  uploadInputElement.addEventListener('change', showForm);
+  closeFormButtonElement.addEventListener('click', closeForm);
 
-descriptionInputElement.addEventListener('focus', () => {
-  validateDescription(descriptionInputElement.value);
-});
+  hashtagsInputElement.addEventListener('keydown', onTextInputEscKeydown);
+  descriptionInputElement.addEventListener('keydown', onTextInputEscKeydown);
+
+  hashtagsInputElement.addEventListener('input', () => {
+    validateHashtags(hashtagsInputElement.value);
+  });
+
+  hashtagsInputElement.addEventListener('focus', () => {
+    validateHashtags(hashtagsInputElement.value);
+  });
+
+  descriptionInputElement.addEventListener('input', () => {
+    validateDescription(descriptionInputElement.value);
+  });
+
+  descriptionInputElement.addEventListener('focus', () => {
+    validateDescription(descriptionInputElement.value);
+  });
+};
+
+init();
