@@ -31,11 +31,24 @@ const closeForm = () => {
   formElement.reset();
 };
 
+const addShowFormListeners = () => {
+  uploadInputElement.addEventListener('change', showForm);
+};
+
+const addButtonCloseFormListeners = () => {
+  closeFormButtonElement.addEventListener('click', closeForm);
+};
+
 const onTextInputEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     evt.stopPropagation();
   }
+};
+
+const addNoFormCloseOnInputEscListeners = () => {
+  hashtagsInputElement.addEventListener('keydown', onTextInputEscKeydown);
+  descriptionInputElement.addEventListener('keydown', onTextInputEscKeydown);
 };
 
 const validateHashtags = (hashtagsString) => {
@@ -79,6 +92,16 @@ const validateHashtags = (hashtagsString) => {
   hashtagsInputElement.reportValidity();
 };
 
+const addHashtagsValidationListeners = () => {
+  hashtagsInputElement.addEventListener('input', () => {
+    validateHashtags(hashtagsInputElement.value);
+  });
+
+  hashtagsInputElement.addEventListener('focus', () => {
+    validateHashtags(hashtagsInputElement.value);
+  });
+};
+
 const validateDescription = (description) => {
   if (!checkStringMaxLength(description, DESCRIPTION_MAX_LENGTH)) {
     descriptionInputElement.setCustomValidity('Длина комментария не может составлять больше 140 символов.');
@@ -89,21 +112,7 @@ const validateDescription = (description) => {
   descriptionInputElement.reportValidity();
 };
 
-const init = () => {
-  uploadInputElement.addEventListener('change', showForm);
-  closeFormButtonElement.addEventListener('click', closeForm);
-
-  hashtagsInputElement.addEventListener('keydown', onTextInputEscKeydown);
-  descriptionInputElement.addEventListener('keydown', onTextInputEscKeydown);
-
-  hashtagsInputElement.addEventListener('input', () => {
-    validateHashtags(hashtagsInputElement.value);
-  });
-
-  hashtagsInputElement.addEventListener('focus', () => {
-    validateHashtags(hashtagsInputElement.value);
-  });
-
+const addDescriptionValidationListeners = () => {
   descriptionInputElement.addEventListener('input', () => {
     validateDescription(descriptionInputElement.value);
   });
@@ -111,6 +120,14 @@ const init = () => {
   descriptionInputElement.addEventListener('focus', () => {
     validateDescription(descriptionInputElement.value);
   });
+};
+
+const init = () => {
+  addShowFormListeners();
+  addButtonCloseFormListeners();
+  addNoFormCloseOnInputEscListeners();
+  addHashtagsValidationListeners();
+  addDescriptionValidationListeners();
 };
 
 init();
