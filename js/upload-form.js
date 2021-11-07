@@ -1,4 +1,6 @@
-import {isEscapeKey} from './utils.js';
+import {isEscapeKey, checkStringMaxLength} from './utils.js';
+
+const DESCRIPTION_MAX_LENGTH = 140;
 
 const formElement = document.querySelector('.img-upload__form');
 const uploadInputElement = formElement.querySelector('.img-upload__input');
@@ -41,3 +43,70 @@ const onTextInputEscKeydown = (evt) => {
 
 hashtagsInputElement.addEventListener('keydown', onTextInputEscKeydown);
 descriptionInputElement.addEventListener('keydown', onTextInputEscKeydown);
+
+const validateHashtags = (hashtagsString) => {
+  const splittedHashtags = hashtagsString.split(' ');
+  const hashtags = splittedHashtags.filter((value) => value.length > 0);
+
+  let errorMessages = [];
+
+  if (hashtags.some((x) => !x.startsWith('#'))) {
+    errorMessages.push('Хештег должен начинаться с символа # (решётка).');
+  }
+
+  const letterDigitRegexp = /^[A-Za-zА-Яа-яЁё0-9]*$/;
+  if (hashtags.some((x) => !letterDigitRegexp.test(x.startsWith('#') ? x.substring(1) : ''))) {
+    errorMessages.push('Строка после решётки должна состоять из букв и чисел.');
+  }
+
+  if (hashtags.some((x) => x === '#')) {
+    errorMessages.push('Хештег не может состоять только из одной решётки.');
+  }
+
+  if (hashtags.some((x) => x.length > 20)) {
+    errorMessages.push('Максимальная длина одного хештега 20 символов, включая решётку.');
+  }
+
+  if ((new Set(hashtags)).size !== hashtags.length) {
+    errorMessages.push('Один и тот же хештег не может быть использован дважды.');
+  }
+
+  if (hashtags.length > 5) {
+    errorMessages.push('Нельзя указать больше пяти хештегов.');
+  }
+
+  if (errorMessages.length > 0) {
+    const errorMessage = errorMessages.join('\n');
+    hashtagsInputElement.setCustomValidity(errorMessage);
+  } else {
+    hashtagsInputElement.setCustomValidity('');
+  }
+
+  hashtagsInputElement.reportValidity();
+};
+
+hashtagsInputElement.addEventListener('input', () => {
+  validateHashtags(hashtagsInputElement.value);
+});
+
+hashtagsInputElement.addEventListener('focus', () => {
+  validateHashtags(hashtagsInputElement.value);
+});
+
+const validateDescription = (description) => {
+  if (!checkStringMaxLength(description, DESCRIPTION_MAX_LENGTH)) {
+    descriptionInputElement.setCustomValidity('Длина комментария не может составлять больше 140 символов.');
+  } else {
+    descriptionInputElement.setCustomValidity('');
+  }
+
+  descriptionInputElement.reportValidity();
+};
+
+descriptionInputElement.addEventListener('input', () => {
+  validateDescription(descriptionInputElement.value);
+});
+
+descriptionInputElement.addEventListener('focus', () => {
+  validateDescription(descriptionInputElement.value);
+});
